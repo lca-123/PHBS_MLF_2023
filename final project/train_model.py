@@ -10,7 +10,7 @@ class ModelTrainer:
                  optimizer,
                  device,
                  name,
-                 early_stop=5,  # 早停patience
+                 early_stop=5,
                  n_epochs=100,
                  seed=0):
         self.model = model
@@ -102,6 +102,8 @@ class ModelTrainer:
         plt.legend()
         plt.title(f"scores for {self.name} best IC = {max_ic}")
         fig.savefig(f'{model_path}/{self.name}-loss.png')
+
+        return train_list, val_list
 
     def predict(self, test_dl):
         x1, labels, weight = next(iter(test_dl))

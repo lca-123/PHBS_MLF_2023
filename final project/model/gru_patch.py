@@ -13,14 +13,12 @@ class GRUPatchModel(nn.Module):
             N_patch=5,
             step=1,
             seq_len=40,
-            patch_axis=0,
-            device=torch.device("cuda:0" if torch.cuda.is_available() else "cpu")):
+            patch_axis=0):
         super().__init__()
         assert patch_axis in [0, 1], 'patch should be either 0 or 1'
         self.N_patch = N_patch
         self.step = step
         self.patch_num = math.floor((seq_len - N_patch)/step) + 1
-        self.device = device
         self.input_dim = input_dim
         self.patch_axis = patch_axis
         self.gru = nn.GRU(N_patch, hidden_dim, batch_first=True, num_layers=1)
