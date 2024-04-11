@@ -11,7 +11,7 @@ class ModelTrainer:
                  device,
                  name,
                  early_stop=5,
-                 n_epochs=1,
+                 n_epochs=100,
                  seed=0):
         self.model = model
         self.optimizer = optimizer
