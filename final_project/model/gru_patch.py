@@ -1,7 +1,5 @@
 import torch.nn as nn
 import torch
-from torch.utils.data.dataset import Dataset
-import numpy as np
 import math
 
 
@@ -80,17 +78,3 @@ class Flatten_Head(nn.Module):
         x = torch.stack(x_out, dim=1)  # x: 5000, 6, 1
         x = torch.squeeze(x, -1)  # 5000, 6
         return self.outlinear(self.batch1(x))  # 5000, 1
-
-
-class Newdataset(Dataset):
-    def __init__(self, data1, label, weight) -> None:
-        super().__init__()
-        self.data1 = data1.astype(np.float32)
-        self.label = label.astype(np.float32)
-        self.weight = weight
-
-    def __len__(self):
-        return len(self.data1)
-
-    def __getitem__(self, index):
-        return self.data1[index], self.label[index], self.weight[index]

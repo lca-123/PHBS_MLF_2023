@@ -77,6 +77,8 @@ def load_train_data(x1, y, seq_len=40, step=5):
             y_in_sample[n_sample, :] = y_one
             n_sample += 1
         e_index = n_sample
+        if e_index == s_index:
+            continue
         y_in_sample[s_index:e_index, 0] = standardize_label(y_in_sample[s_index:e_index, 0])
 
     x1_in_sample = x1_in_sample[:n_sample, :]

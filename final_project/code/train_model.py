@@ -1,5 +1,5 @@
 import time
-from function import *
+from code.function import *
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
@@ -27,6 +27,7 @@ class ModelTrainer:
         ic = 0
         self.model.train()
         tqdm_ = tqdm(iterable=train_dl)
+        i = 0
         for i, batch in enumerate(tqdm_):
             x1, labels = batch
             x1 = x1.to(self.device)
@@ -48,19 +49,20 @@ class ModelTrainer:
         self.model.eval()
         ic = 0
         tqdm_ = tqdm(iterable=val_dl)
+        i = 0
         for i, batch in enumerate(tqdm_):
             x1, labels = batch
             x1 = x1.to(self.device)
             labels = labels.to(self.device)
-            out = self.model(x1)
+            out, _ = self.model(x1)
 
             ic += pearson_r(labels, out).item()
 
             tqdm_.set_description(
-                "epoch:{:d} val IC:{:.4f} ".format(epoch, ic / (i + 1)))
+                "epoch:{:d} test IC:{:.4f} ".format(epoch, ic / (i + 1)))
         return ic / (i + 1)
 
-    def fit(self, train_dl, val_dl, model_path):
+    def fit(self, train_dl, test_dl, model_path):
         print(f'current device: {self.device}')
         print(f'begin time: {time.ctime()}')
         print(self.model)
@@ -72,10 +74,11 @@ class ModelTrainer:
         train_list = []
         val_list = []
 
+        epoch = 0
         for epoch in range(self.n_epochs):
 
             train_ic = self._train_epoch(train_dl, epoch)
-            ic = self._eval_epoch(val_dl, epoch)
+            ic = self._eval_epoch(test_dl, epoch)
 
             train_list.append(train_ic)
             val_list.append(ic)
@@ -105,12 +108,11 @@ class ModelTrainer:
 
         return train_list, val_list
 
-    def predict(self, test_dl):
-        x1, labels, weight = next(iter(test_dl))
+    def predict(self, val_dl):
+        x1, labels = next(iter(val_dl))
         x1 = x1.to(self.device)
         self.model.eval()
-        y_pred = self.model(x1)
+        y_pred, _ = self.model(x1)
         y_pred = y_pred.cpu().detach().numpy()
 
         return y_pred
-
