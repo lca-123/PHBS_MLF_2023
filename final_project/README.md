@@ -1,4 +1,4 @@
-# How to capture the patterns of quantity and price data in long time series
+# How to Capture the Patterns of Price and Volume data in Long Time Series
 
 ## Team Member
 
@@ -8,3 +8,15 @@
 | Cheng Lei    |            |
 
 ## Project Introduction
+
+
+
+## Data Analysis
+
+
+
+## Model Setting
+
+
+
+## Backtest
