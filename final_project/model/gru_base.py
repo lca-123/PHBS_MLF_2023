@@ -1,7 +1,5 @@
 import torch.nn as nn
 import torch
-from torch.utils.data.dataset import Dataset
-import numpy as np
 
 
 class GRUModel(nn.Module):
@@ -64,15 +62,4 @@ class PredictionHead(nn.Module):
             output = self.linear(self.hidden(x[torch.arange(0, bs).long(), mask_point.long(), :]))
         return output
 
-class Newdataset(Dataset):
-    def __init__(self, data1, label, weight) -> None:
-        super().__init__()
-        self.data1 = data1.astype(np.float32)
-        self.label = label.astype(np.float32)
-        self.weight = weight
 
-    def __len__(self):
-        return len(self.data1)
-
-    def __getitem__(self, index):
-        return self.data1[index], self.label[index], self.weight[index]
