@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da1f24ce-72f9-418c-a61c-a39d89741ce9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/final_project/image/datasample.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/final_project/image/model_structure.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final_project/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/final_project/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final_project/backtest/backtest.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/final_project/backtest/backtest.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +66,7 @@
       <workItem from="1712889505278" duration="860000" />
       <workItem from="1712890509846" duration="2070000" />
       <workItem from="1712893037293" duration="2287000" />
+      <workItem from="1712931018045" duration="287000" />
     </task>
     <servers />
   </component>

@@ -41,6 +41,8 @@ In this study, the long-term stock series volume and price data are divided into
 
 ![raw data sample](image/datasample.png)
 
+the raw data is too big, so we don't put it into the repository, click the [link](https://disk.pku.edu.cn/link/AA2715E37E09614D25A07092DE39E4A33A) here to get the raw data if you want to reproduce the program. 
+
 ### 2. Data processing
 
 - Exclude the ST stock in that period. 
