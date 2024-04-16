@@ -34,7 +34,7 @@ In this study, the long-term stock series volume and price data are divided into
 ### 1. Data source
 
 - **Stock pool:** all A-share stocks from 2014-01-02 to 2024-04-10. 
-- **Input features:** volume and price data of individual stocks without feature engineering, including **high, open, low, close, volume, vwap**. 
+- **Input features:** daily volume and price data of individual stocks without feature engineering, including **high, open, low, close, volume, vwap**. 
 - **Output labels:** t+1 to t+11 return of all stocks. 
 
 #### raw data sample
@@ -60,7 +60,12 @@ print(X_valid.shape, y_valid.shape, valid_date.shape)  # (5272, 290, 6) (5272, 2
 
 ### 1. Model structure
 
-The model structure is shown in the following figure. Input data with a dimension of t x f, and transform it into a vector with a dimension of m x n x f through patch partitioning. Next, for each original feature, GRU is used to extract time series information between patches, with each patch as the time step and the finer grained time within the patch as the new feature. Take the output of the last time step and obtain f hidden layers with dimension h. Finally, concatenate the hidden layers of different original features, and then connect them to the fully connected layer to obtain the predicted value. 
+The model structure is shown in the following figure. 
+
+1. Input data with a dimension of **t x f**, and transform it into a vector with a dimension of **m x n x f** through patching. 
+2. Next, for each original feature, GRU is used to extract time series information between patches, with each patch as the time step and the data within the patch as the new feature. 
+3. Take the output of the last time step and obtain **f** hidden layers with dimension **h**. 
+4. Finally, concatenate the hidden layers of different original features, and then connect them to the fully connected layer to obtain the predicted value. 
 
 ![model structure](image/model_structure.png)
 
@@ -69,19 +74,19 @@ The model structure is shown in the following figure. Input data with a dimensio
 | model name   | detailed structure                                           |
 | ------------ | ------------------------------------------------------------ |
 | GRU baseline | GRU: Input dimension 40 × 6, output dimension 30, with 1 layer.<br/>BN: Batch standardize the output of GRU.<br/>FC: Fully connected layer, input dimension 30, output dimension 1. |
-| GRU patch    | GRU: Input dimension 8 × 5, output dimension 30, 1 layer, quantity 6.<br/>Concat: concatenate the outputs of multiple GRUs, with an output dimension of 180.<br/>BN: Batch standardize the output of Concat.<br/>FC: Fully connected layer, input dimension 180, output dimension 1. |
+| GRU patch    | GRU: Input dimension 8 × 5, output dimension 30, 1 layer, quantity 6.<br/>Concat: concatenate the outputs of GRU, with an output dimension of 180.<br/>BN: Batch standardize the output of Concat.<br/>FC: Fully connected layer, input dimension 180, output dimension 1. |
 
 ### 3. Training detail
 
 - **features and label**
-  - Feature X: The opening, high, low, closing, VWAP, and trading volume data of an individual stock over the past 40 trading days, with a sequence length of 40. 
+  - Feature X: The **open, high, low, closing, VWAP and volume** data of an individual stock over the past 40 trading days, with a sequence length of 40.  
   - Label y: The yield of an individual stock over the next 10 trading days (T+1 to T+11). 
-  - Feature preprocessing: Each feature is first time series standardized, which means dividing each value of the feature time series by the last value of the sequence. Further standardize the cross-section z-score for each feature. 
+  - Feature preprocessing: Each feature is first time series standardized, which means dividing each value of the feature time series by the last value of the sequence. 
   - Label preprocessing: Standardize the cross-section z-score of labels. 
   - Loss function: The inverse of the IC between the predicted value and the label. 
 - **model training parameters**
   - Batch size: 5000. 
-  - Maximum number of training iteration rounds: 100, number of early stop rounds: 10. 
+  - Maximum number of training iteration rounds: 100, number of early stop rounds: 5. 
   - Learning rate: 0.005, optimizer: Adam. 
 
 ## Backtest
