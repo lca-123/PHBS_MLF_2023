@@ -51,7 +51,7 @@ the raw data is too big, so we don't put it into the repository, click the [link
 
 ```python
 print(X_train.shape, y_train.shape, train_date.shape)  # (5272, 2248, 6) (5272, 2248) (2248,)
-print(X_valid.shape, y_valid.shape, valid_date.shape)  # (5272, 290, 6) (5272, 290) (250,)
+print(X_valid.shape, y_valid.shape, valid_date.shape)  # (5272, 250, 6) (5272, 250) (250,)
 ```
 
 
