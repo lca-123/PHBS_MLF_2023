@@ -71,10 +71,12 @@ The model structure is shown in the following figure.
 
 ### 2. Network structure comparison
 
-| model name   | detailed structure                                           |
-| ------------ | ------------------------------------------------------------ |
-| GRU baseline | GRU: Input dimension 40 × 6, output dimension 30, with 1 layer.<br/>BN: Batch standardize the output of GRU.<br/>FC: Fully connected layer, input dimension 30, output dimension 1. |
-| GRU patch    | GRU: Input dimension 8 × 5, output dimension 30, 1 layer, quantity 6.<br/>Concat: concatenate the outputs of GRU, with an output dimension of 180.<br/>BN: Batch standardize the output of Concat.<br/>FC: Fully connected layer, input dimension 180, output dimension 1. |
+Click the model name to see the code of the model. 
+
+| model name                                                   | detailed structure                                           |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [GRU baseline](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/model/gru_base.py) | GRU: Input dimension 40 × 6, output dimension 30, with 1 layer.<br/>BN: Batch standardize the output of GRU.<br/>FC: Fully connected layer, input dimension 30, output dimension 1. |
+| [GRU patch](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/model/gru_patch.py) | GRU: Input dimension 8 × 5, output dimension 30, 1 layer, quantity 6.<br/>Concat: concatenate the outputs of GRU, with an output dimension of 180.<br/>BN: Batch standardize the output of Concat.<br/>FC: Fully connected layer, input dimension 180, output dimension 1. |
 
 ### 3. Training detail
 
@@ -160,8 +162,18 @@ The data of Shanghai and Shenzhen A-shares from March 29, 2023 to April 10, 2024
 
 <img src="image/netvalue_gru_patch.png" width='70%' ></img>
 
-- For comparison, the Net value figure for GRU_patch_factor present a more obvious difference of the long and short group. Although the whole market performs poor during this backtest period, the long-short group of GRU_patch _factor achieves 4.6% positive return. And the excessive return of it is $4.6\% - (-9.3\%) = 13.9\%$.
+- For comparison, the Net value figure for GRU_patch_factor present a more obvious difference of the long and short group. Although the whole market performs poor during this backtest period, the long-short group of GRU_patch _factor achieves 4.6% positive return. And the excessive return of it is $13.9\%$.
 
 - **Conclusion:**
 
   From the IC, return and differnce of long-short group, the GRU_patch_factor realizes a pretty good improvement over the GRU_factor.
+
+## File Structure of Our Project
+
+- [backtest](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/backtest): the folder we do the backtest. 
+- [code](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/code): the folder including the model trainer and some functions used in the model training. 
+- [data](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/data):  the raw and processed data, including a sample factor data as the result after we running the model. 
+- [image](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/image): images shown in this file. 
+- [model](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/model): two model we used. 
+- [data_preprocess.ipynb](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/data_preprocess.ipynb): code we do the data preprocessing.
+- [model_train.ipynb](https://github.com/lca-123/PHBS_MLF_2023/tree/master/final_project/model_train.ipynb): code we do the model training and predicting. 
